@@ -1,0 +1,3 @@
+[submodule "external/guacamole-client"]
+	path = external/guacamole-client
+	url = https://github.com/apache/guacamole-client.git

@@ -1,0 +1,113 @@
+/* Container to center the entire form */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f0f2f5; /* Light grey background */
+}
+
+/* The form box style */
+.login-form {
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+/* Title styling */
+.login-title {
+  margin-bottom: 30px;
+  color: #333;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+/* Input group layout */
+.input-group {
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #555;
+  font-size: 0.95rem;
+}
+
+/* Input field styling */
+.input-group input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition:
+    border-color 0.3s,
+    box-shadow 0.3s;
+  box-sizing: border-box; /* Important for padding/width calculation */
+}
+
+/* Focus state for inputs */
+.input-group input:focus {
+  border-color: #007bff; /* Primary color */
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+  outline: none; /* Remove default focus outline */
+}
+
+/* Submit button styling */
+.login-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #007bff; /* Primary blue */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color 0.3s,
+    transform 0.1s;
+  margin-top: 10px;
+}
+
+.login-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+.login-button:active {
+  transform: scale(0.99);
+}
+
+/* Forgot password link */
+.forgot-password {
+  margin-top: 20px;
+  font-size: 0.9rem;
+}
+
+.forgot-password a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.forgot-password a:hover {
+  text-decoration: underline;
+}
+
+/* Error message styling */
+.error-message {
+  background-color: #ffebe9;
+  color: #d73a49;
+  border: 1px solid #d73a49;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+  text-align: left;
+}
