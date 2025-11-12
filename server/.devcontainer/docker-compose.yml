@@ -1,0 +1,71 @@
+version: "3.9"
+
+services:
+  guacamole-db:
+    image: mysql:8.0
+    container_name: guacamole-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root_pass
+      MYSQL_DATABASE: guacamole_db
+      MYSQL_USER: guac_user
+      MYSQL_PASSWORD: guac_pass
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - guac-db-data:/var/lib/mysql
+      - ../src/database/init:/docker-entrypoint-initdb.d
+    ports:
+      - "30006:3306"
+
+  guacd:
+    image: guacamole/guacd:1.5.5
+    network_mode: host
+    container_name: guacd
+    restart: always
+    ports:
+      - "4822:4822"
+
+  guacamole:
+    image: guacamole/guacamole:1.5.5
+    container_name: guacamole
+    restart: always
+    network_mode: host
+    depends_on:
+      - guacd
+      - guacamole-db
+    environment:
+      MYSQL_HOSTNAME: 127.0.0.1
+      MYSQL_DATABASE: guacamole_db
+      MYSQL_PORT: 30006
+      MYSQL_USER: guac_user
+      MYSQL_PASSWORD: guac_pass
+      GUACD_HOSTNAME: 127.0.0.1
+      GUACD_PORT: 4822
+    ports:
+      - "8080:8080"
+
+  server:
+    build: ./
+    container_name: server
+    restart: always
+    network_mode: host
+    environment:
+      TZ: Asia/Singapore
+      AWS_ACCESS_KEY_ID: XXX
+      AWS_SECRET_ACCESS_KEY: XXX
+      AWS_REGION: ap-southeast-1
+      MYSQL_HOSTNAME: 127.0.0.1
+      MYSQL_DATABASE: guacamole_db
+      MYSQL_PORT: 30006
+      MYSQL_USER: guac_user
+      MYSQL_PASSWORD: guac_pass
+    volumes:
+      - ./../:/app
+    depends_on:
+      - guacamole
+    command: sleep infinity
+    ports:
+      - "3001:3001"
+
+volumes:
+  guac-db-data:

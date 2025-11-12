@@ -1,0 +1,17 @@
+{
+  "name": "client",
+  "service": "client",
+  "dockerComposeFile": "./docker-compose.yml",
+  "workspaceFolder": "/app",
+  "forwardPorts": [3000],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "ms-azuretools.vscode-docker"
+      ]
+    }
+  }
+}
+
