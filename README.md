@@ -39,6 +39,3 @@ We use development containers for all developments, and you can refer to the res
 - Client: https://github.com/desstopsatyourservice/DAYS/tree/main/client/.devcontainer
 
 This enables you to easily contribute to DAYS, even by using DAYS! 🙂
-
-
-W
