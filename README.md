@@ -13,12 +13,16 @@ We built DAYS on top of Apache Guacamole (https://guacamole.apache.org/) remote 
 ## DAYS Server
 An express server in node.js, written in typescript. 
 
+Only support AWS endpoints for now. More cloud providers will be added in future release.
+
 Official Docker image here: https://hub.docker.com/r/desstopatyourservice/server/
 
 Dockerfile here if you want to rebuild your own image: https://github.com/desstopsatyourservice/DAYS/blob/main/server/Dockerfile
 
 ## DAYS Client 
-A react application written in typescript and hosted using nginx. 
+A react application written in typescript. 
+
+Containers are wrapped using nginx to be hosted. Refer to the deploy section for more info.
 
 Official Docker image here: https://hub.docker.com/r/desstopatyourservice/client/
 
