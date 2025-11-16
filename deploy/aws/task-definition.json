@@ -1,0 +1,208 @@
+{
+    "family": "days",
+    "containerDefinitions": [
+        {
+            "cpu": 0,
+            "environment": [],
+            "essential": true,
+            "image": "guacamole/guacd:1.5.5",
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "days/guacd",
+                    "awslogs-region": "ap-southeast-1",
+                    "awslogs-stream-prefix": "ecs"
+                }
+            },
+            "mountPoints": [],
+            "name": "guacd",
+            "portMappings": [
+                {
+                    "containerPort": 4822,
+                    "hostPort": 4822,
+                    "protocol": "tcp"
+                }
+            ],
+            "systemControls": [],
+            "volumesFrom": []
+        },
+        {
+            "cpu": 0,
+            "dependsOn": [
+                {
+                    "condition": "START",
+                    "containerName": "guacd"
+                }
+            ],
+            "environment": [
+                {
+                    "name": "MYSQL_DATABASE",
+                    "value": "guacamole_db"
+                },
+                {
+                    "name": "MYSQL_PORT",
+                    "value": "3306"
+                },
+                {
+                    "name": "GUACD_PORT",
+                    "value": "4822"
+                },
+                {
+                    "name": "GUACD_HOSTNAME",
+                    "value": "127.0.0.1"
+                }
+            ],
+            "essential": true,
+            "image": "guacamole/guacamole:1.5.5",
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "days/guacamole",
+                    "awslogs-region": "ap-southeast-1",
+                    "awslogs-stream-prefix": "ecs"
+                }
+            },
+            "mountPoints": [],
+            "name": "guacamole",
+            "portMappings": [
+                {
+                    "containerPort": 8080,
+                    "hostPort": 8080,
+                    "protocol": "tcp"
+                }
+            ],
+            "secrets": [
+                {
+                    "name": "MYSQL_HOSTNAME",
+                    "valueFrom": "arn:aws:secretsmanager:<aws-region>:xxxxxxxxxxxx:secret:days/mysql-xxxxxxx:MYSQL_HOSTNAME::"
+                },
+                {
+                    "name": "MYSQL_USER",
+                    "valueFrom": "arn:aws:secretsmanager:<aws-region>:xxxxxxxxxxxx:secret:days/mysql-xxxxxxx:MYSQL_USER::"
+                },
+                {
+                    "name": "MYSQL_PASSWORD",
+                    "valueFrom": "arn:aws:secretsmanager:<aws-region>:xxxxxxxxxxxx:secret:days/mysql-xxxxxxx:MYSQL_PASSWORD::"
+                }
+            ],
+            "systemControls": [],
+            "volumesFrom": []
+        },
+        {
+            "cpu": 0,
+            "dependsOn": [
+                {
+                    "condition": "START",
+                    "containerName": "guacamole"
+                }
+            ],
+            "environment": [
+                {
+                    "name": "MYSQL_DATABASE",
+                    "value": "guacamole_db"
+                },
+                {
+                    "name": "MYSQL_PORT",
+                    "value": "3306"
+                },
+                {
+                    "name": "TZ",
+                    "value": "Asia/Singapore"
+                }
+            ],
+            "essential": true,
+            "image": "desstopsatyourservice/server:latest",
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "days/server",
+                    "awslogs-region": "<aws-region>",
+                    "awslogs-stream-prefix": "ecs"
+                }
+            },
+            "mountPoints": [],
+            "name": "server",
+            "portMappings": [
+                {
+                    "containerPort": 3001,
+                    "hostPort": 3001,
+                    "protocol": "tcp"
+                }
+            ],
+            "secrets": [
+                {
+                    "name": "MYSQL_HOSTNAME",
+                    "valueFrom": "arn:aws:secretsmanager:<aws-region>:xxxxxxxxxxxx:secret:days/mysql-xxxxxxx:MYSQL_HOSTNAME::"
+                },
+                {
+                    "name": "MYSQL_USER",
+                    "valueFrom": "arn:aws:secretsmanager:<aws-region>:xxxxxxxxxxxx:secret:days/mysql-xxxxxxx:MYSQL_USER::"
+                },
+                {
+                    "name": "MYSQL_PASSWORD",
+                    "valueFrom": "arn:aws:secretsmanager:<aws-region>:xxxxxxxxxxxx:secret:days/mysql-xxxxxxx:MYSQL_PASSWORD::"
+                },
+                {
+                    "name": "AWS_ACCESS_KEY_ID",
+                    "valueFrom": "arn:aws:secretsmanager:<aws-region>:xxxxxxxxxxxx:secret:days/aws-xxxxxxx:AWS_ACCESS_KEY_ID::"
+                },
+                {
+                    "name": "AWS_SECRET_ACCESS_KEY",
+                    "valueFrom": "arn:aws:secretsmanager:<aws-region>:xxxxxxxxxxxx:secret:days/aws-xxxxxxx:AWS_SECRET_ACCESS_KEY::"
+                },
+                {
+                    "name": "AWS_REGION",
+                    "valueFrom": "arn:aws:secretsmanager:<aws-region>:xxxxxxxxxxxx:secret:days/aws-xxxxxxx:AWS_REGION::"
+                }
+            ],
+            "systemControls": [],
+            "volumesFrom": []
+        },
+        {
+            "cpu": 0,
+            "dependsOn": [
+                {
+                    "condition": "START",
+                    "containerName": "server"
+                }
+            ],
+            "environment": [
+                {
+                    "name": "TZ",
+                    "value": "Asia/Singapore"
+                }
+            ],
+            "essential": true,
+            "image": "desstopsatyourservice/client:latest",
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "days/client",
+                    "awslogs-region": "<aws-region>",
+                    "awslogs-stream-prefix": "ecs"
+                }
+            },
+            "mountPoints": [],
+            "name": "client",
+            "portMappings": [
+                {
+                    "containerPort": 80,
+                    "hostPort": 80,
+                    "protocol": "tcp"
+                }
+            ],
+            "systemControls": [],
+            "volumesFrom": []
+        }
+    ],
+    "taskRoleArn": "arn:aws:iam::xxxxxxxxxxxx:role/ecsTaskExecutionRole",
+    "executionRoleArn": "arn:aws:iam::xxxxxxxxxxxx:role/ecsTaskExecutionRole",
+    "networkMode": "awsvpc",
+    "volumes": [],
+    "placementConstraints": [],
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "cpu": "1024",
+    "memory": "4096"
+}
