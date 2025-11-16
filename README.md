@@ -2,6 +2,8 @@
 
 <img width="229" height="285" alt="image" src="https://github.com/user-attachments/assets/e8ef1d3c-aaba-4bff-9bb3-cff671f42e44" />
 
+We welcome all developers to connect and contribute. 🙂
+
 DAYS is a secure, cloud-based virtual desktop solution designed to empower workers and vendors to work from any location using any internet-enabled device. Our solution delivers a fully functional desktop environment hosted on public cloud with access to enterprise network, enabling seamless access to internal enterprise systems and collaborative tools.
 
 To uphold data protection standards, the virtual desktops are intentionally isolated from direct internet access. This architecture ensures compliance with enterprise security policies, mitigates external threats, and supports regulatory requirements.
@@ -28,9 +30,15 @@ Official Docker image here: https://hub.docker.com/r/desstopatyourservice/client
 
 Dockerfile here if you want to rebuild your own image: https://github.com/desstopsatyourservice/DAYS/blob/main/client/Dockerfile
 
+## Deployment
+DAYS is currently supporting AWS deployment mode only. If you wish to deploy via AWS ECS, a sample deployment task definition can be found here: https://github.com/desstopsatyourservice/DAYS/blob/main/deploy/aws/task-definition.json
+
 ## For the developers 💻
 We use development containers for all developments, and you can refer to the respective devcontainers setup here:
 - Server: https://github.com/desstopsatyourservice/DAYS/tree/main/server/.devcontainer
 - Client: https://github.com/desstopsatyourservice/DAYS/tree/main/client/.devcontainer
 
 This enables you to easily contribute to DAYS, even by using DAYS! 🙂
+
+
+W
